@@ -46,7 +46,8 @@ namespace CasaDoCodigo.Controllers
         // GET: Categorias/Create
         public IActionResult Create()
         {
-            return View();
+            var vm = new CategoriaViewModel();
+            return View(vm);
         }
 
         // POST: Categorias/Create

@@ -1,4 +1,4 @@
-﻿@model CasaDoCodigo.Models.SubCategoria
+﻿@model CasaDoCodigo.Models.SubcategoriaViewModel
 
 @{
     ViewData["Title"] = "Create";
@@ -15,14 +15,14 @@
 
             @*Inserindo a seleção de categorias*@
             <div class="form-group">
-                <label asp-for="Categoria.Titulo" class="control-label"></label>
-                <select asp-for="Categoria.Id" class="form-control" asp-items="ViewBag.CategoriaId"></select>
+                <label asp-for="SubCategoria.Categoria.Titulo" class="control-label"></label>
+                <select asp-for="SubCategoria.Categoria.Id" class="form-control" asp-items="ViewBag.CategoriaId"></select>
             </div>
 
             <div class="form-group">
-                <label asp-for="Titulo" class="control-label"></label>
-                <input asp-for="Titulo" class="form-control" />
-                <span asp-validation-for="Titulo" class="text-danger"></span>
+                <label asp-for="SubCategoria.Titulo" class="control-label"></label>
+                <input asp-for="SubCategoria.Titulo" class="form-control" />
+                <span asp-validation-for="SubCategoria.Titulo" class="text-danger"></span>
             </div>
 
             <div class="form-group">

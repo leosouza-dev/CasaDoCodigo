@@ -7,6 +7,6 @@ namespace CasaDoCodigo.Models
 {
     public class CategoriaViewModel
     {
-        public Categoria Categoria { get; set; }
+        public string Titulo { get; set; }
     }
 }

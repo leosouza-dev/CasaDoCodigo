@@ -48,8 +48,9 @@ namespace CasaDoCodigo.Controllers
         // GET: SubCategorias/Create
         public IActionResult Create()
         {
+            var vm = new SubcategoriaViewModel();
             ViewData["CategoriaId"] = new SelectList(_context.Categorias, "Id", "Titulo");
-            return View();
+            return View(vm);
         }
 
         // POST: SubCategorias/Create

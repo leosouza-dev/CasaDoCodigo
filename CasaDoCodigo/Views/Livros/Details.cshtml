@@ -1,0 +1,84 @@
+﻿@model CasaDoCodigo.Models.Livro
+
+@{
+    ViewData["Title"] = "Criar";
+}
+
+<article class="parte-1">
+    <div class="info-inicial">
+        <h1>@Html.DisplayFor(model => model.Titulo)</h1>
+        @*<h2>@Html.DisplayFor(model => model.Descricao)</h2>*@
+        <p>
+            @Html.DisplayFor(model => model.Autor.Nome)
+        </p>
+        <div class="preco p-4">
+            <div class="preco-div d-flex justify-content-between  mb-2">
+                <p class="float-left">E-book</p>
+                <p class="float-left">R$ @Html.DisplayFor(model => model.Preco) por  R$ @Html.DisplayFor(model => model.Preco)</p>
+                <button type="button" class="btn btn-warning">Comprar</button>
+            </div>
+
+            <div class="preco-div d-flex justify-content-between  mb-2">
+                <p class="float-left">Impresso</p>
+                <p class="float-left">R$ @Html.DisplayFor(model => model.Preco) por  R$ @Html.DisplayFor(model => model.Preco)</p>
+                <button type="button" class="btn btn-warning">Comprar</button>
+            </div>
+
+            <div class="preco-div d-flex justify-content-between">
+                <p class="float-left">Impresso + E-Book</p>
+                <p class="float-lefts">R$ @Html.DisplayFor(model => model.Preco) por  R$ @Html.DisplayFor(model => model.Preco)</p>
+                <button type="button" class="btn btn-warning">Comprar</button>
+            </div>
+        </div>
+    </div>
+    <div class="area-livro">
+        @*<img src="~/img/livro-asp-net-core.jpg" alt="Alternate Text" />*@
+        <img src="@Html.DisplayFor(model => model.Imagem)" />
+    </div>
+</article>
+
+
+
+<section class="mt-5">
+    <span class="border-top"></span>
+    <h2 class="text-muted border-bottom">Conteúdo</h2>
+    <p>@Html.DisplayFor(model => model.Descricao)</p>
+</section>
+
+
+<section class="mt-5 ">
+    <h2 class="text-muted border-bottom">Autor</h2>
+    <div class="d-flex justify-content-start">
+        <div class="mr-3">
+            <img src="@Html.DisplayFor(model => model.Autor.Imagem)" alt="Foto Autor" />
+        </div>
+
+        <div>
+
+            <h2>@Html.DisplayFor(model => model.Autor.Nome)</h2>
+
+            <p>
+                @Html.DisplayFor(model => model.Autor.Descricao)
+            </p>
+        </div>
+    </div>
+
+</section>
+
+<section class="mt-5">
+    <h2 class="text-muted border-bottom">Dados do Produto</h2>
+    <p>Número de Páginas: @Html.DisplayFor(model => model.NumeroPagina)</p>
+    <p>ISBN: @Html.DisplayFor(model => model.Isbn)</p>
+</section>
+
+<section class="section-escura d-flex justify-content-start p-4">
+    <p class="mr-2 p-section-escura">
+        Não econtrou o seu livro?
+    </p>
+    <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" placeholder="Pesquisar" aria-label="Pesquisar">
+        <button class="btn btn-dark my-2 my-sm-0" type="submit">Pesquisar</button>
+    </form>
+</section>
+
+

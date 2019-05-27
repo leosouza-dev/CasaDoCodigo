@@ -5,8 +5,9 @@ using System.Threading.Tasks;
 
 namespace CasaDoCodigo.Models
 {
-    public class CategoriaViewModel
+    public class SubcategoriaViewModel
     {
-        public Categoria Categoria { get; set; }
+        public string Titulo { get; set; }
+        public int CategoriaId { get; set; }
     }
 }

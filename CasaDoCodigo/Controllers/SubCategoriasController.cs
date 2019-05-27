@@ -57,16 +57,29 @@ namespace CasaDoCodigo.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(SubCategoria subCategoria)
-        {
-            //if (ModelState.IsValid)
-            //{
-                _context.Add(subCategoria);
-                _context.Entry(subCategoria.Categoria).State = EntityState.Unchanged;
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            //}
-            //return View(subCategoria);
+        public async Task<IActionResult> Create(SubcategoriaViewModel subCategoriaVM)
+        { 
+            var subcategoria = new SubCategoria
+            {
+                Titulo = subCategoriaVM.Titulo,
+                Categoria = _context.Categorias.FirstOrDefault(m => m.Id == subCategoriaVM.CategoriaId)
+            };
+
+
+            _context.Add(subcategoria);
+          //  _context.Entry(subcategoria.Categoria).State = EntityState.Unchanged;
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+
+
+            ////if (ModelState.IsValid)
+            ////{
+            //    _context.Add(subCategoria);
+            //    _context.Entry(subCategoria.Categoria).State = EntityState.Unchanged;
+            //    await _context.SaveChangesAsync();
+            //    return RedirectToAction(nameof(Index));
+            ////}
+            ////return View(subCategoria);
         }
 
         // GET: SubCategorias/Edit/5

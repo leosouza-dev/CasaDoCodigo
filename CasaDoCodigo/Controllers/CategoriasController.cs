@@ -46,7 +46,8 @@ namespace CasaDoCodigo.Controllers
         // GET: Categorias/Create
         public IActionResult Create()
         {
-            return View();
+            var vm = new CategoriaViewModel();
+            return View(vm);
         }
 
         // POST: Categorias/Create
@@ -54,15 +55,25 @@ namespace CasaDoCodigo.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Titulo")] Categoria categoria)
+        public async Task<IActionResult> Create(CategoriaViewModel categoria)
         {
+            var cat = new Categoria { Titulo = categoria.Titulo };
+
             if (ModelState.IsValid)
-            {
-                _context.Add(categoria);
+            {            
+                _context.Add(cat);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             return View(categoria);
+
+            //if (ModelState.IsValid)
+            //{
+            //    _context.Add(categoria);
+            //    await _context.SaveChangesAsync();
+            //    return RedirectToAction(nameof(Index));
+            //}
+            //return View(categoria);
         }
 
         // GET: Categorias/Edit/5

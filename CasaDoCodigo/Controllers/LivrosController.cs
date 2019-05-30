@@ -50,8 +50,11 @@ namespace CasaDoCodigo.Controllers
         // GET: Livroes/Create
         public IActionResult Create()
         {
+            var vm = new LivroViewModel();
+
             ViewData["AutorId"] = new SelectList(_context.Autores, "Id", "Nome");
-            return View();
+            ViewData["SubcategoriaId"] = new SelectList(_context.SubCategorias, "Id", "Titulo");
+            return View(vm);
         }
 
         // POST: Livroes/Create
@@ -59,16 +62,33 @@ namespace CasaDoCodigo.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Livro livro)
+        public async Task<IActionResult> Create(LivroViewModel livroVM)
         {
+
+
             if (ModelState.IsValid)
             {
+
+
+                var livro = new Livro
+                {
+                    Titulo = livroVM.Titulo,
+                    Descricao = livroVM.Descricao,
+                    Imagem = livroVM.Imagem,
+                    Preco = livroVM.Preco,
+                    NumeroPagina = livroVM.NumeroPagina,
+                    Isbn = livroVM.Isbn,
+                    Autor = _context.Autores.FirstOrDefault(a => a.Id == livroVM.AutorId),
+                    SubCategoria = _context.SubCategorias.FirstOrDefault(s => s.Id == livroVM.SubcategoriaId)
+
+                };
+
                 _context.Add(livro);
-                _context.Entry(livro.Autor).State = EntityState.Unchanged;
+                //_context.Entry(livro.Autor).State = EntityState.Unchanged;
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(livro);
+            return Create();
         }
 
         // GET: Livroes/Edit/5

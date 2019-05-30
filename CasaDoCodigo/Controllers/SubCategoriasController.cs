@@ -48,9 +48,16 @@ namespace CasaDoCodigo.Controllers
         // GET: SubCategorias/Create
         public IActionResult Create()
         {
-            var vm = new SubcategoriaViewModel();
+            //var vm = new SubcategoriaViewModel();
+            var vm = Instancia();
             ViewData["CategoriaId"] = new SelectList(_context.Categorias, "Id", "Titulo");
             return View(vm);
+        }
+
+        public SubcategoriaViewModel Instancia()
+        {
+            return new SubcategoriaViewModel();
+            
         }
 
         // POST: SubCategorias/Create
@@ -60,27 +67,30 @@ namespace CasaDoCodigo.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(SubcategoriaViewModel subCategoriaVM)
         { 
-            var subcategoria = new SubCategoria
+
+
+            if (ModelState.IsValid)
             {
-                Titulo = subCategoriaVM.Titulo,
-                Categoria = _context.Categorias.FirstOrDefault(m => m.Id == subCategoriaVM.CategoriaId)
-            };
+                
+                var subcategoria = new SubCategoria
+                {
+                    Titulo = subCategoriaVM.Titulo,
+                    Categoria = _context.Categorias.FirstOrDefault(m => m.Id == subCategoriaVM.CategoriaId)
+                };
 
+                System.Diagnostics.Debug.WriteLine("Teste mano");
+                Console.WriteLine("Teste");
 
-            _context.Add(subcategoria);
-          //  _context.Entry(subcategoria.Categoria).State = EntityState.Unchanged;
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+                _context.Add(subcategoria);
+                 //  _context.Entry(subcategoria.Categoria).State = EntityState.Unchanged;
+                 await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
 
-
-            ////if (ModelState.IsValid)
-            ////{
-            //    _context.Add(subCategoria);
-            //    _context.Entry(subCategoria.Categoria).State = EntityState.Unchanged;
-            //    await _context.SaveChangesAsync();
-            //    return RedirectToAction(nameof(Index));
-            ////}
-            ////return View(subCategoria);
+            //repopula o dropdown
+            ViewData["CategoriaId"] = new SelectList(_context.Categorias, "Id", "Titulo");
+            return View(subCategoriaVM);
+            //return Create();
         }
 
         // GET: SubCategorias/Edit/5
@@ -97,6 +107,7 @@ namespace CasaDoCodigo.Controllers
                 return NotFound();
             }
             return View(subCategoria);
+
         }
 
         // POST: SubCategorias/Edit/5

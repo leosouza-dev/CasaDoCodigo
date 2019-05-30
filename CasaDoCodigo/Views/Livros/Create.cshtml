@@ -1,8 +1,6 @@
-﻿@model CasaDoCodigo.Models.Livro
+﻿@model CasaDoCodigo.Models.LivroViewModel
 
-@{
-    ViewData["Title"] = "Create";
-}
+
 
 <h1>Create</h1>
 
@@ -42,6 +40,20 @@
                 <input asp-for="Isbn" class="form-control" />
                 <span asp-validation-for="Isbn" class="text-danger"></span>
             </div>
+
+            @*Inserindo a seleção de subcategorias*@
+            <div class="form-group">
+                <label asp-for="SubcategoriaId" class="control-label"></label>
+                <select asp-for="SubcategoriaId" class="form-control" asp-items="ViewBag.SubcategoriaId"></select>
+            </div>
+
+            @*Inserindo a seleção de subcategorias*@
+            <div class="form-group">
+                <label asp-for="AutorId" class="control-label"></label>
+                <select asp-for="AutorId" class="form-control" asp-items="ViewBag.AutorId"></select>
+            </div>
+
+
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
@@ -53,6 +65,6 @@
     <a asp-action="Index">Back to List</a>
 </div>
 
-@section Scripts {
+@*@section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+}*@

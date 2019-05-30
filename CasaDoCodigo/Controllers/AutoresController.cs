@@ -46,7 +46,8 @@ namespace CasaDoCodigo.Controllers
         // GET: Autores/Create
         public IActionResult Create()
         {
-            return View();
+            var vm = new AutorViewModel();
+            return View(vm);
         }
 
         // POST: Autores/Create
@@ -54,8 +55,15 @@ namespace CasaDoCodigo.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nome,Descricao,Imagem")] Autor autor)
+        public async Task<IActionResult> Create(AutorViewModel autorVM)
         {
+            var autor = new Autor
+            {
+                Nome = autorVM.Nome,
+                Descricao = autorVM.Descricao,
+                Imagem = autorVM.Imagem
+            };
+
             if (ModelState.IsValid)
             {
                 _context.Add(autor);

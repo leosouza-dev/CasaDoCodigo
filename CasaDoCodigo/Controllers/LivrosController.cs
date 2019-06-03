@@ -7,16 +7,19 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CasaDoCodigo.Data;
 using CasaDoCodigo.Models;
+using AutoMapper;
 
 namespace CasaDoCodigo.Controllers
 {
     public class LivrosController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IMapper _mapper;
 
-        public LivrosController(ApplicationDbContext context)
+        public LivrosController(ApplicationDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         // GET: Livroes
@@ -50,11 +53,11 @@ namespace CasaDoCodigo.Controllers
         // GET: Livroes/Create
         public IActionResult Create()
         {
-            var vm = new LivroViewModel();
+            //var vm = new LivroViewModel();
 
             ViewData["AutorId"] = new SelectList(_context.Autores, "Id", "Nome");
             ViewData["SubcategoriaId"] = new SelectList(_context.SubCategorias, "Id", "Titulo");
-            return View(vm);
+            return View();
         }
 
         // POST: Livroes/Create
@@ -68,23 +71,23 @@ namespace CasaDoCodigo.Controllers
 
             if (ModelState.IsValid)
             {
+                //var livro = new Livro
+                //{
+                //    Titulo = livroVM.Titulo,
+                //    Descricao = livroVM.Descricao,
+                //    Imagem = livroVM.Imagem,
+                //    Preco = livroVM.Preco,
+                //    NumeroPagina = livroVM.NumeroPagina,
+                //    Isbn = livroVM.Isbn,
+                //    Autor = _context.Autores.FirstOrDefault(a => a.Id == livroVM.AutorId),
+                //    SubCategoria = _context.SubCategorias.FirstOrDefault(s => s.Id == livroVM.SubcategoriaId)
+                //};
 
-
-                var livro = new Livro
-                {
-                    Titulo = livroVM.Titulo,
-                    Descricao = livroVM.Descricao,
-                    Imagem = livroVM.Imagem,
-                    Preco = livroVM.Preco,
-                    NumeroPagina = livroVM.NumeroPagina,
-                    Isbn = livroVM.Isbn,
-                    Autor = _context.Autores.FirstOrDefault(a => a.Id == livroVM.AutorId),
-                    SubCategoria = _context.SubCategorias.FirstOrDefault(s => s.Id == livroVM.SubcategoriaId)
-
-                };
+                var livro = _mapper.Map<Livro>(livroVM);
 
                 _context.Add(livro);
-                //_context.Entry(livro.Autor).State = EntityState.Unchanged;
+                _context.Entry(livro.Autor).State = EntityState.Unchanged;
+                _context.Entry(livro.SubCategoria).State = EntityState.Unchanged;
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }

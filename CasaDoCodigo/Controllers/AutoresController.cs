@@ -7,16 +7,20 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CasaDoCodigo.Data;
 using CasaDoCodigo.Models;
+using AutoMapper;
+
 
 namespace CasaDoCodigo.Controllers
 {
     public class AutoresController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IMapper _mapper;
 
-        public AutoresController(ApplicationDbContext context)
+        public AutoresController(ApplicationDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         // GET: Autores
@@ -46,8 +50,9 @@ namespace CasaDoCodigo.Controllers
         // GET: Autores/Create
         public IActionResult Create()
         {
-            var vm = new AutorViewModel();
-            return View(vm);
+            //var vm = new AutorViewModel();
+            //return View(vm);
+            return View();
         }
 
         // POST: Autores/Create
@@ -57,12 +62,15 @@ namespace CasaDoCodigo.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(AutorViewModel autorVM)
         {
-            var autor = new Autor
-            {
-                Nome = autorVM.Nome,
-                Descricao = autorVM.Descricao,
-                Imagem = autorVM.Imagem
-            };
+            //var autor = new Autor
+            //{
+            //    Nome = autorVM.Nome,
+            //    Descricao = autorVM.Descricao,
+            //    Imagem = autorVM.Imagem
+            //};
+
+            var autor = _mapper.Map<Autor>(autorVM);
+
 
             if (ModelState.IsValid)
             {

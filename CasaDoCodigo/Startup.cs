@@ -13,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using CasaDoCodigo.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using AutoMapper;
 
 namespace CasaDoCodigo
 {
@@ -41,6 +42,10 @@ namespace CasaDoCodigo
             services.AddDefaultIdentity<IdentityUser>()
                 .AddDefaultUI(UIFramework.Bootstrap4)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            //automapper *************************************
+            services.AddAutoMapper(typeof(Startup));
+            //services.AddAutoMapper();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }

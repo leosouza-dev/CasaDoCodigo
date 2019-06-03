@@ -7,16 +7,20 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CasaDoCodigo.Data;
 using CasaDoCodigo.Models;
+using AutoMapper;
+
 
 namespace CasaDoCodigo.Controllers
 {
     public class CategoriasController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IMapper _mapper;
 
-        public CategoriasController(ApplicationDbContext context)
+        public CategoriasController(ApplicationDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         // GET: Categorias
@@ -46,8 +50,9 @@ namespace CasaDoCodigo.Controllers
         // GET: Categorias/Create
         public IActionResult Create()
         {
-            var vm = new CategoriaViewModel();
-            return View(vm);
+            //var vm = new CategoriaViewModel();
+            //return View(vm);
+            return View();
         }
 
         // POST: Categorias/Create
@@ -55,17 +60,19 @@ namespace CasaDoCodigo.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(CategoriaViewModel categoria)
+        public async Task<IActionResult> Create(CategoriaViewModel categoriaViewModel)
         {
-            var cat = new Categoria { Titulo = categoria.Titulo };
+            //var cat = new Categoria { Titulo = categoria.Titulo };
 
             if (ModelState.IsValid)
-            {            
+            {
+                var cat = _mapper.Map<Categoria>(categoriaViewModel);
+
                 _context.Add(cat);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(categoria);
+            return View(categoriaViewModel);
 
             //if (ModelState.IsValid)
             //{

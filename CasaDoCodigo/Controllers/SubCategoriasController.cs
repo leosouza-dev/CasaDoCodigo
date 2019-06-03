@@ -7,16 +7,19 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CasaDoCodigo.Data;
 using CasaDoCodigo.Models;
+using AutoMapper;
 
 namespace CasaDoCodigo.Controllers
 {
     public class SubCategoriasController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IMapper _mapper;
 
-        public SubCategoriasController(ApplicationDbContext context)
+        public SubCategoriasController(ApplicationDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         // GET: SubCategorias
@@ -49,16 +52,11 @@ namespace CasaDoCodigo.Controllers
         public IActionResult Create()
         {
             //var vm = new SubcategoriaViewModel();
-            var vm = Instancia();
+
             ViewData["CategoriaId"] = new SelectList(_context.Categorias, "Id", "Titulo");
-            return View(vm);
+            return View();
         }
 
-        public SubcategoriaViewModel Instancia()
-        {
-            return new SubcategoriaViewModel();
-            
-        }
 
         // POST: SubCategorias/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
@@ -66,24 +64,24 @@ namespace CasaDoCodigo.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(SubcategoriaViewModel subCategoriaVM)
-        { 
+            { 
 
 
             if (ModelState.IsValid)
             {
-                
-                var subcategoria = new SubCategoria
-                {
-                    Titulo = subCategoriaVM.Titulo,
-                    Categoria = _context.Categorias.FirstOrDefault(m => m.Id == subCategoriaVM.CategoriaId)
-                };
+                //var subcategoria = new SubCategoria
+                //{
+                //    Titulo = subCategoriaVM.Titulo,
+                //    Categoria = _context.Categorias.FirstOrDefault(m => m.Id == subCategoriaVM.CategoriaId)
+                //};
 
-                System.Diagnostics.Debug.WriteLine("Teste mano");
-                Console.WriteLine("Teste");
+                var subcategoria = _mapper.Map<SubCategoria>(subCategoriaVM);
 
                 _context.Add(subcategoria);
-                 //  _context.Entry(subcategoria.Categoria).State = EntityState.Unchanged;
-                 await _context.SaveChangesAsync();
+
+                _context.Entry(subcategoria.Categoria).State = EntityState.Unchanged;
+
+                await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
 

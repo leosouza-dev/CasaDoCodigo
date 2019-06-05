@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace CasaDoCodigo.Models
 {
-    public class ItemCarrinho
+    public class CarrinhoItem
     {
         public int Id { get; set; }
         public Livro Livro { get; set; }

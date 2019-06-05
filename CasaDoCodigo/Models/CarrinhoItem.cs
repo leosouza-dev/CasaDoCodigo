@@ -12,6 +12,6 @@ namespace CasaDoCodigo.Models
         public Livro Livro { get; set; }
         public int Quantidade { get; set; }
         [StringLength(200)]
-        public int CarrinhoCompraId { get; set; }
+        public string CarrinhoCompraId { get; set; }
     }
 }

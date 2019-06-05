@@ -85,6 +85,8 @@ namespace CasaDoCodigo.Controllers
 
                 var livro = _mapper.Map<Livro>(livroVM);
 
+                //var livr = _context.Livros.Include(s => s.Autor).Include(s => s.SubCategoria);
+
                 _context.Add(livro);
                 _context.Entry(livro.Autor).State = EntityState.Unchanged;
                 _context.Entry(livro.SubCategoria).State = EntityState.Unchanged;

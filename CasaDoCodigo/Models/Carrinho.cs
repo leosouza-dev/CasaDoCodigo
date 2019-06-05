@@ -78,7 +78,7 @@ namespace CasaDoCodigo.Models
 
 
         //metodo para Remover um item ao carrinho
-        public int RemoverrDoCarrinho(Livro livro, int quantidade)
+        public int RemoverrDoCarrinho(Livro livro)
         {
             var item = _context.CarrinhoItens.SingleOrDefault(l => l.Livro.Id == livro.Id && l.CarrinhoCompraId == Id);
 

@@ -14,6 +14,7 @@ using CasaDoCodigo.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using AutoMapper;
+using CasaDoCodigo.Models;
 
 namespace CasaDoCodigo
 {
@@ -47,6 +48,10 @@ namespace CasaDoCodigo
             services.AddAutoMapper(typeof(Startup));
             //services.AddAutoMapper();
 
+            //session
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddScoped(cp => Carrinho.GetCarrinho(cp));
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
@@ -70,6 +75,9 @@ namespace CasaDoCodigo
             app.UseCookiePolicy();
 
             app.UseAuthentication();
+
+            //usando a session
+            app.UseSession();
 
             app.UseMvc(routes =>
             {

@@ -7,8 +7,7 @@ namespace CasaDoCodigo.Models
 {
     public class CarrinhoViewModel
     {
-        public Livro Livro { get; set; }
-        public decimal TotalItem { get; set; }
-        public decimal TotalCarrinho { get; set; }
+        public Carrinho Carrinho { get; set; }
+        public decimal CarrinhoTotal { get; set; }
     }
 }

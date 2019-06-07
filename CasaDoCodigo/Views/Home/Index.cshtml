@@ -1,4 +1,7 @@
-﻿@{
+﻿@model IEnumerable<CasaDoCodigo.Models.Livro>
+
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -18,3 +21,61 @@
 <div class="d-flex justify-content-center">
     <a class="btn btn-secondary w-25 mb-3" asp-area="" asp-controller="SubCategorias" asp-action="Index">Subcategorias</a>
 </div>
+
+<div class="pull-right">
+    <a class="btn btn-success" asp-controller="Pedido" asp-action="Carrinho">
+        Teste
+    </a>
+</div>
+
+
+
+
+<h1>Livros</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Titulo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Imagem)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Preco)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NumeroPagina)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Isbn)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Titulo)
+                </td>
+                <td>
+                    <img class="img-autor" src="@Html.DisplayFor(modelItem => item.Imagem)" alt="Alternate Text" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Preco)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NumeroPagina)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Isbn)
+                </td>
+                <td>
+                    <a class="btn btn-info" asp-controller="Pedido" asp-action="Carrinho" asp-route-id="@item.Id">Comprar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

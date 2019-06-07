@@ -5,9 +5,10 @@ using System.Threading.Tasks;
 
 namespace CasaDoCodigo.Models
 {
-    public class CarrinhoViewModel
+    public class Pedido
     {
-        public Carrinho Carrinho { get; set; }
-        public decimal CarrinhoTotal { get; set; }
+        public int Id { get; set; }
+
+        public List<ItemPedido> Itens { get; set; } = new List<ItemPedido>();
     }
 }

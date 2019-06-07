@@ -18,7 +18,7 @@ namespace CasaDoCodigo.Data
         public DbSet<Livro> Livros { get; set; }
         public DbSet<Categoria> Categorias { get; set; }
         public DbSet<SubCategoria> SubCategorias { get; set; }
-        public DbSet<CarrinhoItem> CarrinhoItens  { get; set; }
+
 
     }
 }

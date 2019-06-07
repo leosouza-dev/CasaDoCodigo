@@ -48,9 +48,7 @@ namespace CasaDoCodigo
             services.AddAutoMapper(typeof(Startup));
             //services.AddAutoMapper();
 
-            //session
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            services.AddScoped(cp => Carrinho.GetCarrinho(cp));
+           
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
@@ -76,8 +74,7 @@ namespace CasaDoCodigo
 
             app.UseAuthentication();
 
-            //usando a session
-            app.UseSession();
+
 
             app.UseMvc(routes =>
             {

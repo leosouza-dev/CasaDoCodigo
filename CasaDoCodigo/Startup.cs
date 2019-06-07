@@ -51,6 +51,8 @@ namespace CasaDoCodigo
             //session
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped(cp => Carrinho.GetCarrinho(cp));
+            services.AddMemoryCache();
+            services.AddSession();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }

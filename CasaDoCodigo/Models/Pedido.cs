@@ -9,6 +9,7 @@ namespace CasaDoCodigo.Models
     {
         public int Id { get; set; }
 
+        //checar isso
         public List<ItemPedido> Itens { get; set; } = new List<ItemPedido>();
     }
 }

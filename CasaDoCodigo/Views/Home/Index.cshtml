@@ -1,8 +1,37 @@
 ﻿@model IEnumerable<CasaDoCodigo.Models.Livro>
-@*@await Html.PartialAsync("Carousel")*@
 
-<h2>Livros </h2>
 
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center mb-5">
+    <h1>Área Administrativa</h1>
+</div>
+
+<div class="d-flex justify-content-center">
+    <a class="btn btn-secondary w-25 mb-3" asp-area="" asp-controller="Livros" asp-action="Index">Livros</a>
+</div>
+<div class="d-flex justify-content-center">
+    <a class="btn btn-secondary w-25 mb-3" asp-area="" asp-controller="Autores" asp-action="Index">Autores</a>
+</div>
+<div class="d-flex justify-content-center">
+    <a class="btn btn-secondary w-25 mb-3" asp-area="" asp-controller="Categorias" asp-action="Index">Categorias</a>
+</div>
+<div class="d-flex justify-content-center">
+    <a class="btn btn-secondary w-25 mb-3" asp-area="" asp-controller="SubCategorias" asp-action="Index">Subcategorias</a>
+</div>
+
+<div class="pull-right">
+    <a class="btn btn-success" asp-controller="Pedido" asp-action="Carrinho">
+        Teste
+    </a>
+</div>
+
+
+
+
+<h1>Livros</h1>
 <table class="table">
     <thead>
         <tr>
@@ -25,33 +54,28 @@
         </tr>
     </thead>
     <tbody>
-
-
-            @foreach (var item in @Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Titulo)
-                    </td>
-                    <td>
-                        <img class="img-autor" src="@Html.DisplayFor(modelItem => item.Imagem)" alt="Alternate Text" />
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Preco)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.NumeroPagina)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Isbn)
-                    </td>
-                    <td>
-                        <a class="btn btn-info" asp-controller="CarrinhoController" asp-action="AdicionarItemNoCarrinho" asp-route-id="@item.Id">Comprar</a>
-                        @*<a class="btn btn-success" asp-action="Details" asp-route-id="@item.Id">Detalhes</a>
-                            <a class="btn btn-dark" asp-action="Delete" asp-route-id="@item.Id ">Deletar</a>*@
-                    </td>
-                </tr>
-            }
-
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Titulo)
+                </td>
+                <td>
+                    <img class="img-autor" src="@Html.DisplayFor(modelItem => item.Imagem)" alt="Alternate Text" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Preco)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NumeroPagina)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Isbn)
+                </td>
+                <td>
+                    <a class="btn btn-info" asp-controller="Pedido" asp-action="Carrinho" asp-route-id="@item.Id">Comprar</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

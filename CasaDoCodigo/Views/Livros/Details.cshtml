@@ -15,19 +15,19 @@
             <div class="preco-div d-flex justify-content-between  mb-2">
                 <p class="float-left">E-book</p>
                 <p class="float-left">R$ @Html.DisplayFor(model => model.Preco) por  R$ @Html.DisplayFor(model => model.Preco)</p>
-                <button type="button" class="btn btn-warning">Comprar</button>
+                <a class="btn btn-warning" asp-controller="Pedido" asp-action="Carrinho" asp-route-id="@Model.Id">Comprar</a>
             </div>
 
             <div class="preco-div d-flex justify-content-between  mb-2">
                 <p class="float-left">Impresso</p>
                 <p class="float-left">R$ @Html.DisplayFor(model => model.Preco) por  R$ @Html.DisplayFor(model => model.Preco)</p>
-                <button type="button" class="btn btn-warning">Comprar</button>
+                <a class="btn btn-warning" asp-controller="Pedido" asp-action="Carrinho" asp-route-id="@Model.Id">Comprar</a>
             </div>
 
             <div class="preco-div d-flex justify-content-between">
                 <p class="float-left">Impresso + E-Book</p>
                 <p class="float-lefts">R$ @Html.DisplayFor(model => model.Preco) por  R$ @Html.DisplayFor(model => model.Preco)</p>
-                <button type="button" class="btn btn-warning">Comprar</button>
+                <a class="btn btn-warning" asp-controller="Pedido" asp-action="Carrinho" asp-route-id="@Model.Id">Comprar</a>
             </div>
         </div>
     </div>

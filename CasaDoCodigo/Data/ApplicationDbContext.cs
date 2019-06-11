@@ -33,22 +33,24 @@ namespace CasaDoCodigo.Data
 
         internal void AddItem(int id)
         {
-            var livro = Livros
-                .Where(p => p.Id == id)
-                .SingleOrDefault();
-
+            //encontra o livro no banco de acordo com o Id;
+            var livro = Livros.Where(p => p.Id == id).SingleOrDefault();
+            //se livro não for encontrado, lança excption;
             if (livro == null)
             {
                 throw new ArgumentException("Produto não encontrado");
             }
 
+            //busca ou gera um pedido novo
             var pedido = GetPedido();
 
-            var itemPedido = ItensPedido.Where(i => i.Livro.Id == id&& i.Pedido.Id == pedido.Id).SingleOrDefault();
+            //busca um itemPedido de acordo com o Id pasaado de acordo com o Id do Livro e do Pedido
+            var itemPedido = ItensPedido.Where(i => i.Livro.Id == id && i.Pedido.Id == pedido.Id).SingleOrDefault();
 
+            //se o item do pedido for nulo
             if (itemPedido == null)
             {
-                //checar em colocar um construtor com argumentos
+                //cria um novo Itemedido e salva
                 itemPedido = new ItemPedido(pedido, livro, 1, livro.Preco);
                 ItensPedido.Add(itemPedido);
 
@@ -58,15 +60,20 @@ namespace CasaDoCodigo.Data
 
         internal Pedido GetPedido()
         {
+            //pega o PedidoId da session
             var pedidoId = GetPedidoId();
+            //tenta encontrar um pedido no banco que seja o mesmo da session
             var pedido = Pedidos.Include(p => p.Itens).ThenInclude(i => i.Livro).Where(p => p.Id == pedidoId).SingleOrDefault();
 
-
+            //caso não exista o pedido no banco
             if (pedido == null)
             {
+                //cria pedido novo
                 pedido = new Pedido();
+                //adiciona o pedido no banco
                 Pedidos.Add(pedido);
                 SaveChanges();
+                //seta o pedido na session
                 SetPedidoId(pedido.Id);
             }
 

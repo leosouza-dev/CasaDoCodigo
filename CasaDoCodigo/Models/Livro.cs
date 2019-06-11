@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Runtime.Serialization;
 
 namespace CasaDoCodigo.Models
 {
@@ -8,6 +10,7 @@ namespace CasaDoCodigo.Models
     {
 
         //chave primaria
+        [JsonProperty("LivroId")]
         public int Id { get; set; }
 
         [Required(ErrorMessage = "Campo {0} é obrigatório")]

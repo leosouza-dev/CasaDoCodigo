@@ -30,9 +30,9 @@
         @foreach (var item in Model)
         {
 
-            <div class="row row-center linha-produto">
+            <div class="row row-center linha-produto" item-id="@item.Id">
                 <div class="col-md-3">
-                    <img class="img-produto-carrinho" src="@item.Livro.Imagem" />
+                    <img class="img-produto-carrinho img-autor" src="@item.Livro.Imagem" />
                 </div>
                 <div class="col-md-3">@(item.Livro.Titulo)</div>
                 <div class="col-md-2 text-center">R$ @(item.PrecoUnitario)</div>
@@ -40,14 +40,14 @@
                     <div class="input-group">
                         <span class="input-group-btn">
                             <button class="btn btn-default">
-                                <span class="glyphicon-minus"></span>
+                                <span class="glyphicon-minus">-</span>
                             </button>
                         </span>
                         <input type="text" value="@(item.Quantidade)"
                                class="form-control text-center" />
                         <span class="input-group-btn">
-                            <button class="btn btn-default">
-                                <span class="glyphicon-plus"></span>
+                            <button class="btn btn-default" onclick="incremento(this)">
+                                <span class="glyphicon-plus">+</span>
                             </button>
                         </span>
                     </div>
@@ -58,7 +58,7 @@
                     </span>
                 </div>
             </div>
-
+            <br />
         }
 
     </div>
@@ -88,3 +88,17 @@
         </div>
     </div>
 </div>
+
+@section Scripts {
+    <script type="text/javascript">
+    function incremento(btn) {
+            var item = $(btn).parents();
+            var itemId = $(btn).attr('item-id');
+        }
+    </script>
+}
+
+@*@section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }*@
+

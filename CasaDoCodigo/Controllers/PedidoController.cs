@@ -56,5 +56,11 @@ namespace CasaDoCodigo.Controllers
             ViewData["Pedido"] = pedido;
             return View();
         }
+
+        //public IActionResult Incrementa(int id)
+        //{
+
+        //    return View();
+        //}
     }
 }

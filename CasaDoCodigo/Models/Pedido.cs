@@ -28,8 +28,18 @@ namespace CasaDoCodigo.Models
 
         public void AddItem(ItemPedido item)
         {
-            Itens.Add(item);
-            item.SubTotal();
+            var livroExistente = Itens.Find(i => i.Livro.Titulo == item.Livro.Titulo);
+
+            if (!(livroExistente == null))
+            {
+                item = livroExistente;
+                item.IncrementaItem();
+            }
+            else
+            {
+                Itens.Add(item);
+                item.SubTotal();
+            }
         }
 
         public string Serialize(Pedido pedido)

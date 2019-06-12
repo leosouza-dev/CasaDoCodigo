@@ -47,7 +47,9 @@
                                class="form-control text-center" />
                         <span class="input-group-btn">
                             <button class="btn btn-default" onclick="incremento(this)">
-                                <span class="glyphicon-plus"></span>
+                                <a class="btn btn-info" asp-action="Carrinho" asp-route-id="@item.Id">
+                                    <span class="glyphicon-plus"></span>
+                                </a>
                             </button>
                         </span>
                     </div>

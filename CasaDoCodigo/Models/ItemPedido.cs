@@ -16,11 +16,11 @@ namespace CasaDoCodigo.Models
             Livro = livro;
             Quantidade = quantidade;
             PrecoUnitario = precoUnitario;
-            Id = rnd.Next();
+            Id = livro.Id;
         }
 
 
-        Random rnd = new Random();
+        //Random rnd = new Random();
 
         [JsonProperty("ItemId")]
         public int Id { get; set; }
@@ -42,6 +42,12 @@ namespace CasaDoCodigo.Models
         {
             _subTotal = Quantidade * PrecoUnitario;
             return _subTotal;
+        }
+
+        public void IncrementaItem()
+        {
+            Quantidade++;
+            SubTotal();
         }
     }
 }

@@ -41,17 +41,12 @@ namespace CasaDoCodigo.Models
             });
         }
 
-        //public decimal SubTotal(ItemPedido item)
-        //{
-        //    return item.Quantidade * item.PrecoUnitario;
-        //}
-
-        decimal precoTotal;
+        private decimal precoTotal;
         public decimal PrecoTotal()
         {
             foreach (var item in Itens)
             {
-                precoTotal += item._subTotal;
+                precoTotal += item.SubTotal();
             }
             return precoTotal;
         }

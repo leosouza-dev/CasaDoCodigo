@@ -53,12 +53,6 @@ namespace CasaDoCodigo.Controllers
             //Passado o JSON para session
             _contextAccessor.HttpContext.Session.SetString("pedido", JsonPedido);
 
-            var totalItem = pedido.TotalItem();
-            ViewData["TotalItem"] = totalItem;
-
-            var precoTotal = pedido.PrecoTotal();
-            ViewData["PrecoTotal"] = precoTotal;
-
             ViewData["Pedido"] = pedido;
             return View();
         }

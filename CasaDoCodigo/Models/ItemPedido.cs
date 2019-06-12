@@ -6,8 +6,6 @@ namespace CasaDoCodigo.Models
 {
     public class ItemPedido
     {
-        private object random;
-
         public ItemPedido()
         {
 
@@ -39,10 +37,11 @@ namespace CasaDoCodigo.Models
         [JsonProperty("PrecoUnitario")]
         public decimal PrecoUnitario { get; private set; }
 
-        public decimal _subTotal;
-        public void SubTotal()
+        private decimal _subTotal;
+        public decimal SubTotal()
         {
             _subTotal = Quantidade * PrecoUnitario;
+            return _subTotal;
         }
     }
 }

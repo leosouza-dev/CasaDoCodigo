@@ -40,14 +40,16 @@
                     <div class="input-group">
                         <span class="input-group-btn">
                             <button class="btn btn-default">
-                                <span class="glyphicon-minus"></span>
+                                <a asp-action="Decrementa" asp-route-id="@item.Id">
+                                    <span class="glyphicon-minus"></span>
+                                </a>
                             </button>
                         </span>
                         <input type="text" value="@(item.Quantidade)"
                                class="form-control text-center" />
                         <span class="input-group-btn">
                             <button class="btn btn-default" onclick="incremento(this)">
-                                <a class="btn btn-info" asp-action="Carrinho" asp-route-id="@item.Id">
+                                <a asp-action="Carrinho" asp-route-id="@item.Id">
                                     <span class="glyphicon-plus"></span>
                                 </a>
                             </button>

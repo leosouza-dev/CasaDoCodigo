@@ -42,6 +42,12 @@ namespace CasaDoCodigo.Models
             }
         }
 
+        //fazer
+        public void RemoveItem(ItemPedido item)
+        {
+            Itens.Remove(item);
+        }
+
         public string Serialize(Pedido pedido)
         {
             return JsonConvert.SerializeObject(pedido, Formatting.Indented,

@@ -49,5 +49,19 @@ namespace CasaDoCodigo.Models
             Quantidade++;
             SubTotal();
         }
+
+        public void Decrementa()
+        {
+            if (Quantidade <= 1)
+            {
+
+            }
+            else
+            {
+                Quantidade--;
+                SubTotal();
+            }
+
+        }
     }
 }

@@ -22,10 +22,10 @@ namespace CasaDoCodigo.Controllers
             _context = context;
         }
 
+
         public IActionResult Carrinho(int id)
         {
             Pedido pedido;
-
             //checa se pedido já existe na session
             var pedidoSession = _contextAccessor.HttpContext.Session.GetString("pedido");
             if (string.IsNullOrWhiteSpace(pedidoSession))
@@ -57,10 +57,31 @@ namespace CasaDoCodigo.Controllers
             return View();
         }
 
-        //public IActionResult Incrementa(int id)
-        //{
+        public IActionResult Decrementa(int id)
+        {
+            var pedidoSession = _contextAccessor.HttpContext.Session.GetString("pedido");
+            var pedido = JsonConvert.DeserializeObject<Pedido>(pedidoSession);
 
-        //    return View();
-        //}
+            var item = pedido.Itens.Find(i => i.Id == id);
+
+            if (item.Quantidade <= 1)
+            {
+                pedido.RemoveItem(item);
+            }
+            else
+            {
+                item.Decrementa();
+            }
+
+            //Serializa para JSON para ser passado para a Session
+            var JsonPedido = pedido.Serialize(pedido);
+
+            //Passado o JSON para session
+            _contextAccessor.HttpContext.Session.SetString("pedido", JsonPedido);
+
+            ViewData["Pedido"] = pedido;
+
+            return View("Carrinho");
+        }
     }
 }

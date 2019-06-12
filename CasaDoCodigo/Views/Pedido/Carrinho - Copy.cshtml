@@ -1,7 +1,7 @@
 ﻿@{
     ViewData["Title"] = "Carrinho";
 }
-@*@model IList<ItemPedido>;*@
+@model IList<ItemPedido>;
 
 <h3>Meu Carrinho</h3>
 
@@ -27,7 +27,7 @@
     </div>
     <div class="panel-body">
 
-        @foreach (var item in ViewBag.Pedido.Itens)
+        @foreach (var item in Model)
         {
 
             <div class="row row-center linha-produto" item-id="@item.Id">
@@ -40,21 +40,21 @@
                     <div class="input-group">
                         <span class="input-group-btn">
                             <button class="btn btn-default">
-                                <span class="glyphicon-minus"></span>
+                                <span class="glyphicon-minus">-</span>
                             </button>
                         </span>
                         <input type="text" value="@(item.Quantidade)"
                                class="form-control text-center" />
                         <span class="input-group-btn">
                             <button class="btn btn-default" onclick="incremento(this)">
-                                <span class="glyphicon-plus"></span>
+                                <span class="glyphicon-plus">+</span>
                             </button>
                         </span>
                     </div>
                 </div>
                 <div class="col-md-2">
                     R$ <span class="pull-right" subtotal>
-                        @(item._subTotal)
+                        @(item.Quantidade * item.PrecoUnitario)
                     </span>
                 </div>
             </div>
@@ -66,14 +66,13 @@
         <div class="row">
             <div class="col-md-10">
                 <span numero-itens>
-                    Total: @ViewBag.TotalItem @*@(Model.Count())*@
+                    Total: @(Model.Count())
                     itens
                 </span>
             </div>
             <div class="col-md-2">
                 Total: R$ <span class="pull-right" total>
-                    @*@(Model.Sum(i => i.Quantidade * i.PrecoUnitario))*@
-                    @ViewBag.PrecoTotal
+                    @(Model.Sum(i => i.Quantidade * i.PrecoUnitario))
                 </span>
             </div>
         </div>

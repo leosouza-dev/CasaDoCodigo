@@ -38,5 +38,11 @@ namespace CasaDoCodigo.Models
 
         [JsonProperty("PrecoUnitario")]
         public decimal PrecoUnitario { get; private set; }
+
+        public decimal _subTotal;
+        public void SubTotal()
+        {
+            _subTotal = Quantidade * PrecoUnitario;
+        }
     }
 }

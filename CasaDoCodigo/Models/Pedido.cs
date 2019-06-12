@@ -19,20 +19,18 @@ namespace CasaDoCodigo.Models
         [JsonProperty("Itens")]
         public List<ItemPedido> Itens { get; set; }
 
-        //cria pedido
+        //**************** métodos ****************
         public void CriaPedido()
         {
             Random rnd = new Random();
             Id = rnd.Next();
         }
 
-        //Adiciona Item
         public void AddItem(ItemPedido item)
         {
             Itens.Add(item);
         }
 
-        //Serealizar pedido
         public string Serialize(Pedido pedido)
         {
             return JsonConvert.SerializeObject(pedido, Formatting.Indented,
@@ -42,5 +40,24 @@ namespace CasaDoCodigo.Models
             });
         }
 
+        //public decimal SubTotal(ItemPedido item)
+        //{
+        //    return item.Quantidade * item.PrecoUnitario;
+        //}
+
+        decimal precoTotal;
+        public decimal PrecoTotal()
+        {
+            foreach (var item in Itens)
+            {
+                precoTotal += item._subTotal;
+            }
+            return precoTotal;
+        }
+
+        public int TotalItem()
+        {
+            return Itens.Count();
+        }
     }
 }

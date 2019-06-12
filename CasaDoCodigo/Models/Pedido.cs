@@ -29,6 +29,7 @@ namespace CasaDoCodigo.Models
         public void AddItem(ItemPedido item)
         {
             Itens.Add(item);
+            item.SubTotal();
         }
 
         public string Serialize(Pedido pedido)

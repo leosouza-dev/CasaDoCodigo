@@ -46,7 +46,6 @@ namespace CasaDoCodigo.Controllers
 
             //add item
             pedido.AddItem(item);
-            item.SubTotal();
 
             //Serializa para JSON para ser passado para a Session
             var JsonPedido = pedido.Serialize(pedido);

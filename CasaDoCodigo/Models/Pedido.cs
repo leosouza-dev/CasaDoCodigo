@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using CasaDoCodigo.Data;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,48 +10,45 @@ namespace CasaDoCodigo.Models
 {
     public class Pedido
     {
+        private readonly ApplicationDbContext _context;
+
+        public Pedido(ApplicationDbContext context)
+        {
+            _context = context;
+        }
+
         public Pedido()
         {
             Itens = new List<ItemPedido>();
+
         }
+
         [JsonProperty("id")]
         public int Id { get; set; }
 
         [JsonProperty("Itens")]
         public List<ItemPedido> Itens { get; set; }
 
-        //**************** métodos ****************
-        public void CriaPedido()
+        //**Metodos
+        public void AddItem(Livro livro)
         {
-            Random rnd = new Random();
-            Id = rnd.Next();
-        }
+            //buscar usando Equals???
+            var itemExistente = Itens.Find(i => i.Livro.Equals(livro));
 
-        public void AddItem(ItemPedido item)
-        {
-            var livroExistente = Itens.Find(i => i.Livro.Titulo == item.Livro.Titulo);
-
-            if (!(livroExistente == null))
+            if (itemExistente == null)
             {
-                item = livroExistente;
-                item.IncrementaItem();
+                var item = new ItemPedido(livro);
+                Itens.Add(item);
             }
             else
             {
-                Itens.Add(item);
-                item.SubTotal();
+                itemExistente.IncrementaItem();
             }
         }
 
-        //fazer
-        public void RemoveItem(ItemPedido item)
+        public string Serialize()
         {
-            Itens.Remove(item);
-        }
-
-        public string Serialize(Pedido pedido)
-        {
-            return JsonConvert.SerializeObject(pedido, Formatting.Indented,
+            return JsonConvert.SerializeObject(this, Formatting.Indented,
             new JsonSerializerSettings()
             {
                 ReferenceLoopHandling = ReferenceLoopHandling.Ignore
@@ -71,5 +69,20 @@ namespace CasaDoCodigo.Models
         {
             return Itens.Count();
         }
+
+        public void DecrementaItem(Livro livro)
+        {
+            var item = Itens.Find(i => i.Livro.Equals(livro));
+
+            if (item.Quantidade == 1)
+            {
+                Itens.Remove(item);
+            }
+            else
+            {
+                item.Decrementa();
+            }
+        }
+
     }
 }

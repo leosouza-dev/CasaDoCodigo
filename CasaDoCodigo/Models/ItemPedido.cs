@@ -10,15 +10,14 @@ namespace CasaDoCodigo.Models
         {
 
         }
-        public ItemPedido(Pedido pedido, Livro livro, int quantidade, decimal precoUnitario)
+        public ItemPedido(Livro livro)
         {
-            Pedido = pedido;
+            //Pedido = pedido;
             Livro = livro;
-            Quantidade = quantidade;
-            PrecoUnitario = precoUnitario;
+            Quantidade = 1;
+            PrecoUnitario = livro.Preco;
             Id = livro.Id;
         }
-
 
         //Random rnd = new Random();
 
@@ -38,6 +37,7 @@ namespace CasaDoCodigo.Models
         public decimal PrecoUnitario { get; private set; }
 
         private decimal _subTotal;
+        //metodo só de leitura = não alterar 
         public decimal SubTotal()
         {
             _subTotal = Quantidade * PrecoUnitario;
@@ -52,16 +52,8 @@ namespace CasaDoCodigo.Models
 
         public void Decrementa()
         {
-            if (Quantidade <= 1)
-            {
-
-            }
-            else
-            {
                 Quantidade--;
                 SubTotal();
-            }
-
         }
     }
 }

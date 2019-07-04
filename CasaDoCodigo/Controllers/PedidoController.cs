@@ -1,4 +1,5 @@
 ﻿using CasaDoCodigo.Data;
+using CasaDoCodigo.Factory;
 using CasaDoCodigo.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -25,30 +26,17 @@ namespace CasaDoCodigo.Controllers
 
         public IActionResult Carrinho(int id)
         {
-            Pedido pedido;
-            //checa se pedido já existe na session
-            var pedidoSession = _contextAccessor.HttpContext.Session.GetString("pedido");
-            if (string.IsNullOrWhiteSpace(pedidoSession))
-            {
-                //novo pedido - mudar para injeção de dependencia
-                pedido = new Pedido();
-                //pedido.CriaPedido();
-            }
-            else
-            {
-                pedido = JsonConvert.DeserializeObject<Pedido>(pedidoSession);
-            }
+            //Usando Factory - Ver como torna-la statica
+            PedidoFactory pedidoFactory = new PedidoFactory(_contextAccessor);
+            var pedido = pedidoFactory.Criar();
 
-            //temos que passar os dados do livro para o itemPedido
             var livro = _context.Livros.Where(l => l.Id == id).FirstOrDefault();
-            //Cria um novo item com os dados do livro
-            var item = new ItemPedido(pedido, livro, 1, livro.Preco);
 
             //add item
-            pedido.AddItem(item);
+            pedido.AddItem(livro);
 
             //Serializa para JSON para ser passado para a Session
-            var JsonPedido = pedido.Serialize(pedido);
+            var JsonPedido = pedido.Serialize();
 
             //Passado o JSON para session
             _contextAccessor.HttpContext.Session.SetString("pedido", JsonPedido);
@@ -57,24 +45,19 @@ namespace CasaDoCodigo.Controllers
             return View();
         }
 
+        //Ajustar esse decremento.
+        //muito codigo repetido.
         public IActionResult Decrementa(int id)
         {
-            var pedidoSession = _contextAccessor.HttpContext.Session.GetString("pedido");
-            var pedido = JsonConvert.DeserializeObject<Pedido>(pedidoSession);
+            PedidoFactory pedidoFactory = new PedidoFactory(_contextAccessor);
+            var pedido = pedidoFactory.Criar();
 
-            var item = pedido.Itens.Find(i => i.Id == id);
+            var livro = _context.Livros.Where(l => l.Id == id).FirstOrDefault();
 
-            if (item.Quantidade <= 1)
-            {
-                pedido.RemoveItem(item);
-            }
-            else
-            {
-                item.Decrementa();
-            }
+            pedido.DecrementaItem(livro);
 
             //Serializa para JSON para ser passado para a Session
-            var JsonPedido = pedido.Serialize(pedido);
+            var JsonPedido = pedido.Serialize();
 
             //Passado o JSON para session
             _contextAccessor.HttpContext.Session.SetString("pedido", JsonPedido);

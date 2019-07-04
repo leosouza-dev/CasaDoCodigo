@@ -8,7 +8,10 @@ namespace CasaDoCodigo.Models
 {
     public class Livro 
     {
+        public Livro()
+        {
 
+        }
         //chave primaria
         [JsonProperty("LivroId")]
         public int Id { get; set; }
@@ -35,5 +38,17 @@ namespace CasaDoCodigo.Models
 
         public Autor Autor { get; set; }
         public SubCategoria SubCategoria { get; set; }
+
+
+        //Metodos
+        public override bool Equals(Object obj)
+        {
+            if (obj == null)
+                return false;
+
+            Livro outroLivro = (Livro)obj;
+            //return this.Isbn == outroLivro.Isbn;
+            return this.Isbn.Equals(outroLivro.Isbn);
+        }
     }
 }

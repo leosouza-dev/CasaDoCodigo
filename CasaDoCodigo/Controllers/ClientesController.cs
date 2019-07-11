@@ -22,11 +22,15 @@ namespace CasaDoCodigo.Controllers
             _mapper = mapper;
         }
 
+        // GET: Clientes
         public IActionResult Index()
         {
             return View();
         }
 
+
+        // GET: Clientes/Create
+        [HttpGet]
         public IActionResult Create()
         {
             return View();
@@ -34,12 +38,12 @@ namespace CasaDoCodigo.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Cliente cliente)
+        public IActionResult Create(Cliente cliente)
         {
             if (ModelState.IsValid)
             {
                 _context.Add(cliente);
-                await _context.SaveChangesAsync();
+                _context.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
             return View(cliente);

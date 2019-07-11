@@ -20,6 +20,8 @@ namespace CasaDoCodigo.AutoMapper
             
             CreateMap<Autor, AutorViewModel>().ReverseMap();
             CreateMap<Livro, LivroViewModel>().ReverseMap();
+
+            CreateMap<Cliente, ClienteViewModel>().ReverseMap();
         }
 
     }

@@ -29,5 +29,7 @@ namespace CasaDoCodigo.Data
         public DbSet<SubCategoria> SubCategorias { get; set; }
         public DbSet<Pedido> Pedidos { get; set; }
         public DbSet<ItemPedido> ItensPedido { get; set; }
+        public DbSet<Cliente> Clientes { get; set; }
+        public DbSet<Endereco> Enderecos { get; set; }
     }
 }

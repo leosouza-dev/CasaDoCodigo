@@ -7,9 +7,7 @@ using System.Threading.Tasks;
 namespace CasaDoCodigo.Models
 {
     public class Autor
-    {
-        //chave primaria
-        public int Id { get; set; }
+    {        public int Id { get; set; }
 
         [Required(ErrorMessage = "Campo {0} é obrigatório")]
         [StringLength(200, ErrorMessage = "Campo {0} precisa ter entre {2} e {1} caracteres ", MinimumLength = 2)]
@@ -22,5 +20,7 @@ namespace CasaDoCodigo.Models
         [Required(ErrorMessage = "Campo {0} é obrigatório")]
         public string Imagem { get; set; }
         public IEnumerable<Livro> Livros { get; set; }
+        //chave primaria
+
     }
 }

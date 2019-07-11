@@ -10,17 +10,17 @@ namespace CasaDoCodigo.Models
     {
         public int Id { get; set; }
 
-        public string Nome { get; private set; }
+        public string Nome { get; set; }
 
         [Required(ErrorMessage = "Campo {0} é obrigatório")]
         [StringLength(200, ErrorMessage = "Campo {0} precisa ter entre {2} e {1} caracteres ", MinimumLength = 2)]
-        public string Sobrenome { get; private set; }
+        public string Sobrenome { get; set; }
 
-        public string Documento { get; private set; }
+        public string Documento { get; set; }
 
-        public string Email { get; private set; }
+        public string Email { get; set; }
 
-        public string Telefone { get; private set; }
+        public string Telefone { get; set; }
 
         public Endereco Endereco { get; set; }
 

@@ -38,15 +38,28 @@ namespace CasaDoCodigo.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Cliente cliente)
+        public IActionResult Create(ClienteViewModel clienteVM)
         {
             if (ModelState.IsValid)
             {
+                var cliente = _mapper.Map<Cliente>(clienteVM);
+                var endereco = new Endereco()
+                {
+                    CEP = clienteVM.CEP,
+                    Cidade = clienteVM.Cidade,
+                    Complemento = clienteVM.Complemento,
+                    Estado = clienteVM.Estado,
+                    Numero = clienteVM.Numero,
+                    Pais = clienteVM.Pais,
+                    Rua = clienteVM.Rua
+                };
+                cliente.Endereco = endereco;
+
                 _context.Add(cliente);
                 _context.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
-            return View(cliente);
+            return View(clienteVM);
         }
     }
 }

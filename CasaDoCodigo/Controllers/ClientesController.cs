@@ -57,9 +57,15 @@ namespace CasaDoCodigo.Controllers
 
                 _context.Add(cliente);
                 _context.SaveChanges();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Pagamento), cliente);
             }
             return View(clienteVM);
+        }
+
+        public IActionResult Pagamento(Cliente cliente)
+        {
+            
+            return View(cliente);
         }
     }
 }

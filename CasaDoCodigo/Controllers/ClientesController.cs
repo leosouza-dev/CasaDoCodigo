@@ -57,15 +57,100 @@ namespace CasaDoCodigo.Controllers
 
                 _context.Add(cliente);
                 _context.SaveChanges();
-                return RedirectToAction(nameof(Pagamento), cliente);
+                clienteVM.Id = cliente.Id;
+                return RedirectToAction(nameof(Pagamento), clienteVM);
             }
             return View(clienteVM);
         }
 
-        public IActionResult Pagamento(Cliente cliente)
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var cliente = await _context.Clientes.Include(c => c.Endereco).FirstOrDefaultAsync(c => c.Id == id);
+            if (cliente == null)
+            {
+                return NotFound();
+            }
+
+            var clienteVM = new ClienteViewModel
+            {
+                Id = cliente.Id,
+                Nome = cliente.Nome,
+                Sobrenome = cliente.Sobrenome,
+                Telefone = cliente.Telefone,
+                Email = cliente.Email,
+                Documento = cliente.Documento,
+                Cidade = cliente.Endereco.Cidade,
+                Complemento = cliente.Endereco.Complemento,
+                Estado = cliente.Endereco.Estado,
+                Numero = cliente.Endereco.Numero,
+                Pais = cliente.Endereco.Pais,
+                Rua = cliente.Endereco.Rua,
+                CEP = cliente.Endereco.CEP
+            };
+
+            return View(clienteVM);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, ClienteViewModel clienteVM)
+        {
+            if (id != clienteVM.Id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var cliente = _mapper.Map<Cliente>(clienteVM);
+                    var endereco = new Endereco()
+                    {
+                        CEP = clienteVM.CEP,
+                        Cidade = clienteVM.Cidade,
+                        Complemento = clienteVM.Complemento,
+                        Estado = clienteVM.Estado,
+                        Numero = clienteVM.Numero,
+                        Pais = clienteVM.Pais,
+                        Rua = clienteVM.Rua
+                    };
+                    cliente.Endereco = endereco;
+
+
+                    _context.Update(cliente);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!ClienteExists(clienteVM.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Pagamento), clienteVM);
+            }
+            return View(clienteVM);
+        }
+
+        public IActionResult Pagamento(ClienteViewModel cliente)
         {
             
             return View(cliente);
+        }
+
+        private bool ClienteExists(int id)
+        {
+            return _context.Clientes.Any(e => e.Id == id);
         }
     }
 }

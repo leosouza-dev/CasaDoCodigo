@@ -1,4 +1,4 @@
-﻿@model CasaDoCodigo.Models.Cliente
+﻿@model CasaDoCodigo.Models.ClienteViewModel
 
 @{
     ViewData["Title"] = "Pagamento";
@@ -20,7 +20,7 @@
            faturamento
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Endereco.Rua)
+            @Html.DisplayFor(model => model.Rua)
         </dd>
     </dl>
 </div>

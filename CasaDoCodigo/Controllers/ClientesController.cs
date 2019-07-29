@@ -43,17 +43,6 @@ namespace CasaDoCodigo.Controllers
             if (ModelState.IsValid)
             {
                 var cliente = _mapper.Map<Cliente>(clienteVM);
-                var endereco = new Endereco()
-                {
-                    CEP = clienteVM.CEP,
-                    Cidade = clienteVM.Cidade,
-                    Complemento = clienteVM.Complemento,
-                    Estado = clienteVM.Estado,
-                    Numero = clienteVM.Numero,
-                    Pais = clienteVM.Pais,
-                    Rua = clienteVM.Rua
-                };
-                cliente.Endereco = endereco;
 
                 _context.Add(cliente);
                 _context.SaveChanges();
@@ -94,18 +83,6 @@ namespace CasaDoCodigo.Controllers
                 try
                 {
                     var cliente = _mapper.Map<Cliente>(clienteVM);
-                    var endereco = new Endereco()
-                    {
-                        CEP = clienteVM.CEP,
-                        Cidade = clienteVM.Cidade,
-                        Complemento = clienteVM.Complemento,
-                        Estado = clienteVM.Estado,
-                        Numero = clienteVM.Numero,
-                        Pais = clienteVM.Pais,
-                        Rua = clienteVM.Rua
-                    };
-                    cliente.Endereco = endereco;
-
 
                     _context.Update(cliente);
                     await _context.SaveChangesAsync();

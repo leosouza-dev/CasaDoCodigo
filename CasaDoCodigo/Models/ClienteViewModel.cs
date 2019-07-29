@@ -7,6 +7,27 @@ namespace CasaDoCodigo.Models
 {
     public class ClienteViewModel
     {
+        public ClienteViewModel()
+        {
+
+        }
+        public ClienteViewModel(Cliente cliente)
+        {
+            Id = cliente.Id;
+            Nome = cliente.Nome;
+            Sobrenome = cliente.Sobrenome;
+            Documento = cliente.Documento;
+            Email = cliente.Email;
+            Telefone = cliente.Telefone;
+            Rua = cliente.Endereco.Rua;
+            Numero = cliente.Endereco.Numero;
+            Complemento = cliente.Endereco.Complemento;
+            Cidade = cliente.Endereco.Cidade;
+            Pais = cliente.Endereco.Pais;
+            Estado = cliente.Endereco.Estado;
+            CEP = cliente.Endereco.CEP;
+        }
+
         public int Id { get; set; }
         public string Nome { get; set; }
         public string Sobrenome { get; set; }
@@ -20,5 +41,6 @@ namespace CasaDoCodigo.Models
         public string Pais { get; set; }
         public string Estado { get; set; }
         public string CEP { get; set; }
+        //public Cliente Cliente { get; }
     }
 }

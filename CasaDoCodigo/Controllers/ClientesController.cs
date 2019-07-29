@@ -75,22 +75,7 @@ namespace CasaDoCodigo.Controllers
                 return NotFound();
             }
 
-            var clienteVM = new ClienteViewModel
-            {
-                Id = cliente.Id,
-                Nome = cliente.Nome,
-                Sobrenome = cliente.Sobrenome,
-                Telefone = cliente.Telefone,
-                Email = cliente.Email,
-                Documento = cliente.Documento,
-                Cidade = cliente.Endereco.Cidade,
-                Complemento = cliente.Endereco.Complemento,
-                Estado = cliente.Endereco.Estado,
-                Numero = cliente.Endereco.Numero,
-                Pais = cliente.Endereco.Pais,
-                Rua = cliente.Endereco.Rua,
-                CEP = cliente.Endereco.CEP
-            };
+            var clienteVM = new ClienteViewModel(cliente);
 
             return View(clienteVM);
         }

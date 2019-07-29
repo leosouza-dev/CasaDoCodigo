@@ -80,25 +80,11 @@ namespace CasaDoCodigo.Controllers
 
             if (ModelState.IsValid)
             {
-                try
-                {
-                    var cliente = _mapper.Map<Cliente>(clienteVM);
+                var cliente = _mapper.Map<Cliente>(clienteVM);
+                _context.Update(cliente);
+                await _context.SaveChangesAsync();
 
-                    _context.Update(cliente);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!ClienteExists(clienteVM.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Pagamento), clienteVM);
+                return RedirectToAction("Pagamento", new { id = cliente.Id });
             }
             return View(clienteVM);
         }

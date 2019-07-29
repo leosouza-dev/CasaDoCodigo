@@ -22,14 +22,11 @@ namespace CasaDoCodigo.Controllers
             _mapper = mapper;
         }
 
-        // GET: Clientes
         public IActionResult Index()
         {
             return View();
         }
 
-
-        // GET: Clientes/Create
         [HttpGet]
         public IActionResult Create()
         {
@@ -64,7 +61,9 @@ namespace CasaDoCodigo.Controllers
                 return NotFound();
             }
 
-            var clienteVM = new ClienteViewModel(cliente);
+            var clienteVM = _mapper.Map<ClienteViewModel>(cliente);
+
+            //var clienteVM = new ClienteViewModel(cliente);
 
             return View(clienteVM);
         }

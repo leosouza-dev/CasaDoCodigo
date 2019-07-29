@@ -14,10 +14,7 @@ namespace CasaDoCodigo.AutoMapper
         public AutoMapperConfig()
         {
             CreateMap<Categoria, CategoriaViewModel>().ReverseMap();
-
-            CreateMap<SubCategoria, SubcategoriaViewModel>().ReverseMap();
-            //.ForMember(dest => dest.Categoria, source => source.MapFrom(src => src.CategoriaId));
-            
+            CreateMap<SubCategoria, SubcategoriaViewModel>().ReverseMap();           
             CreateMap<Autor, AutorViewModel>().ReverseMap();
             CreateMap<Livro, LivroViewModel>().ReverseMap();
 

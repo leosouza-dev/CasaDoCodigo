@@ -57,8 +57,7 @@ namespace CasaDoCodigo.Controllers
 
                 _context.Add(cliente);
                 _context.SaveChanges();
-                clienteVM.Id = cliente.Id;
-                return RedirectToAction(nameof(Pagamento), clienteVM);
+                return RedirectToAction("Pagamento", new { id = cliente.Id }); //checar por que tem que dar um "new" (sem ele estava chagando zerado na action)
             }
             return View(clienteVM);
         }
@@ -142,9 +141,10 @@ namespace CasaDoCodigo.Controllers
             return View(clienteVM);
         }
 
-        public IActionResult Pagamento(ClienteViewModel cliente)
+        public IActionResult Pagamento(int id)
         {
-            
+            var cliente = _context.Clientes.Include(c => c.Endereco).FirstOrDefault(c => c.Id == id);
+            cliente.Endereco.EndCompleto(); //pensar em usar o tostring
             return View(cliente);
         }
 

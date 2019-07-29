@@ -4,6 +4,9 @@ namespace CasaDoCodigo.Models
 {
     public class Endereco
     {
+        public string enderecoCompleto;
+
+
         public int Id { get; set; }
         public string Rua { get; set; }
         public int Numero { get; set; }
@@ -13,5 +16,11 @@ namespace CasaDoCodigo.Models
         public string Estado { get; set; }
         public string CEP { get; set; }
         public IEnumerable<Cliente> Clientes { get; set; }
+
+        public void EndCompleto()
+        {
+            enderecoCompleto = $"{Rua}, {Numero} - {Estado}, {Cidade}";
+        }
+
     }
 }
